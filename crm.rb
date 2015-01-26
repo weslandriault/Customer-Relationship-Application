@@ -134,7 +134,6 @@ class CRM
 		return if are_there_contacts? == nil
 
 		while true
-			
 			print "Enter the contact ID of the contact you wish to edit: "
 			id = gets.chomp
 			if id == "\e"
@@ -203,7 +202,7 @@ class CRM
 			else
 				puts
 				puts "That contact doesn't exist in the rolodex!"
-				puts "Press ESC then enter to return to main menu"
+				puts "(Press ESC then enter to return to main menu.)"
 			end
 		end	
 	end
@@ -253,7 +252,7 @@ class CRM
 			else
 				clear_screen
 				puts "Sorry that contact doesn't exist!" 
-				puts "Press ESC then enter to return to main menu"
+				puts "(Press ESC then enter to return to main menu.)"
 			end
 		end
 	end
@@ -301,13 +300,15 @@ class CRM
 	end
 
 	def delete_an_attribute
-		
-		return if are_there_contacts? == nil
+		clear_screen
+		return if are_there_contacts == nil
 
 		while true
-			clear_screen		
-			print "Enter the contact ID of the contact you wish to edit: "
-			id = gets.chomp.to_i
+			print "Enter the contact ID of the contact you wish to delete an attribute for: "
+			id = gets.chomp
+
+			return if id == "\e"
+			id = id.to_i
 
 			contact	= @rolodex.find_contact(id)
 		
@@ -321,33 +322,36 @@ class CRM
 
 					case input
 						when 1 
-							# @rolodex.delete_attribute(contact, contact.id)
+							puts "You have deleted the following contact id: #{contact.id}"
 							contact.id = nil
 							return
 						when 2
+							puts "You have deleted the following first name: #{contact.first_name}"
 							contact.first_name = nil
 							return
 						when 3 
+							puts "You have deleted the following first name: #{contact.last_name}"
 							contact.last_name = nil
 							return
-						when 4 
+						when 4
+							puts "You have deleted the following email: #{contact.email}"
 							contact.email = nil
 							return
 						when 5
+							puts "You have deleted the following note: #{contact.note}"
 							contact.note = nil
 							return
 						else
 							clear_screen
-							return if input == 0
+							return if input == "\e"
 							puts "Invalid selection! Please try again\n\n"
 							puts 
-
 					end
-
 				end
 				else
+					clear_screen
 					puts "Sorry that contact does not exist!"
-					puts "Press 0 to return to main menu."
+					puts "(Press ESC then enter to return to main menu.)"
 					
 				end
 			end
